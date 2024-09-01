@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'M3' 
-    }
-
     environment {
         EMAIL_RECIPIENT = 'your-email@example.com'
     }
@@ -13,16 +9,16 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-               
-                sh 'mvn clean package'
+                // Replace with your build command (e.g., make, npm build, etc.)
+                sh 'your-build-command-here'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-              
-                sh 'mvn test'
+                // Replace with your test command
+                sh 'your-test-command-here'
             }
             post {
                 always {
@@ -41,20 +37,20 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Running code analysis...'
-        
-                sh 'mvn sonar:sonar'
+                // Replace with your code analysis command
+                sh 'your-code-analysis-command-here'
             }
         }
 
         stage('Security Scan') {
             steps {
                 echo 'Running security scan...'
-             
-                sh 'mvn dependency-check:check'
+                // Replace with your security scan command
+                sh 'your-security-scan-command-here'
             }
             post {
                 always {
-                  
+                    // Send email notification
                     emailext (
                         subject: "Security Scan: ${currentBuild.currentResult}",
                         body: "The Security Scan has ${currentBuild.currentResult}. Check the logs for more details.",
@@ -69,24 +65,24 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-             
-                sh 'aws deploy start-deployment --application-name MyApp --deployment-group-name StagingGroup --s3-location bucket=my-bucket,key=my-app.zip'
+                // Replace with your deployment command
+                sh 'your-deployment-command-here'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-             
-                sh 'mvn integration-test'
+                // Replace with your staging integration test command
+                sh 'your-staging-integration-test-command-here'
             }
         }
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production...'
-               
-                sh 'aws deploy start-deployment --application-name MyApp --deployment-group-name ProductionGroup --s3-location bucket=my-bucket,key=my-app.zip'
+                // Replace with your production deployment command
+                sh 'your-production-deployment-command-here'
             }
         }
     }
@@ -94,7 +90,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up workspace...'
-            deleteDir() 
+            deleteDir() // clean up the workspace
         }
 
         success {
@@ -106,4 +102,3 @@ pipeline {
         }
     }
 }
-
