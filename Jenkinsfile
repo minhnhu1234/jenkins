@@ -38,6 +38,8 @@ pipeline {
             }
         }
 
+        // Removed the Code Analysis stage that used SonarQube
+        /*
         stage('Code Analysis') {
             steps {
                 echo 'Running code analysis...'
@@ -45,6 +47,7 @@ pipeline {
                 sh 'mvn sonar:sonar'
             }
         }
+        */
 
         stage('Security Scan') {
             steps {
