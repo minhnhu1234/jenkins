@@ -1,8 +1,11 @@
 pipeline {
     agent any
-    
+
+    tools {
+        maven 'M3' 
+    }
+
     environment {
-        // Define any environment variables here, if necessary
         EMAIL_RECIPIENT = 'your-email@example.com'
     }
 
@@ -10,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                // Example of using Maven to build
+               
                 sh 'mvn clean package'
             }
         }
@@ -18,7 +21,7 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-                // Example of running tests with Maven
+              
                 sh 'mvn test'
             }
             post {
@@ -38,7 +41,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Running code analysis...'
-                // Example using SonarQube
+        
                 sh 'mvn sonar:sonar'
             }
         }
@@ -46,12 +49,12 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Running security scan...'
-                // Example using OWASP Dependency-Check
+             
                 sh 'mvn dependency-check:check'
             }
             post {
                 always {
-                    // Send email notification
+                  
                     emailext (
                         subject: "Security Scan: ${currentBuild.currentResult}",
                         body: "The Security Scan has ${currentBuild.currentResult}. Check the logs for more details.",
@@ -66,7 +69,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-                // Example deployment command (e.g., using AWS CLI)
+             
                 sh 'aws deploy start-deployment --application-name MyApp --deployment-group-name StagingGroup --s3-location bucket=my-bucket,key=my-app.zip'
             }
         }
@@ -74,7 +77,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-                // Example of running tests on the staging environment
+             
                 sh 'mvn integration-test'
             }
         }
@@ -82,7 +85,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production...'
-                // Example deployment command (e.g., using AWS CLI)
+               
                 sh 'aws deploy start-deployment --application-name MyApp --deployment-group-name ProductionGroup --s3-location bucket=my-bucket,key=my-app.zip'
             }
         }
@@ -91,7 +94,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up workspace...'
-            deleteDir() // clean up the workspace
+            deleteDir() 
         }
 
         success {
@@ -103,3 +106,4 @@ pipeline {
         }
     }
 }
+
