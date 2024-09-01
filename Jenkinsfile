@@ -2,27 +2,31 @@ pipeline {
     agent any
 
     environment {
-        EMAIL_RECIPIENT = 'your-email@example.com'
+        EMAIL_RECIPIENT = 'minhnhu171202@gmail.com'
     }
 
     stages {
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                sh 'npm install'
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                // Replace with your build command (e.g., make, npm build, etc.)
-                sh 'your-build-command-here'
+                sh 'npm run build'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-                // Replace with your test command
-                sh 'your-test-command-here'
+                sh 'npm test'
             }
             post {
                 always {
-                    // Send email notification
                     emailext (
                         subject: "Unit and Integration Tests: ${currentBuild.currentResult}",
                         body: "The Unit and Integration Tests have ${currentBuild.currentResult}. Check the logs for more details.",
@@ -37,20 +41,19 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Running code analysis...'
-                // Replace with your code analysis command
-                sh 'your-code-analysis-command-here'
+                // Example: Using ESLint for JavaScript projects
+                sh 'npm run lint'
             }
         }
 
         stage('Security Scan') {
             steps {
                 echo 'Running security scan...'
-                // Replace with your security scan command
-                sh 'your-security-scan-command-here'
+                // Example: Using npm audit for security scanning
+                sh 'npm audit'
             }
             post {
                 always {
-                    // Send email notification
                     emailext (
                         subject: "Security Scan: ${currentBuild.currentResult}",
                         body: "The Security Scan has ${currentBuild.currentResult}. Check the logs for more details.",
@@ -65,7 +68,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-                // Replace with your deployment command
+                // Replace with your deployment command (e.g., using AWS CLI or another tool)
                 sh 'your-deployment-command-here'
             }
         }
@@ -73,8 +76,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-                // Replace with your staging integration test command
-                sh 'your-staging-integration-test-command-here'
+                sh 'npm run integration-test'
             }
         }
 
