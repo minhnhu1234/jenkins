@@ -20,11 +20,10 @@ pipeline {
             }
             post {
                 always {
-                    emailext (
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Jenkins Pipeline: Unit and Integration Tests - ${currentBuild.currentResult}",
                         body: "The Unit and Integration Tests stage has ${currentBuild.currentResult}. Check the attached logs for details.",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                        to: "${EMAIL_RECIPIENT}",
                         attachLog: true
                     )
                 }
@@ -45,13 +44,12 @@ pipeline {
             }
             post {
                 always {
-                    emailext (
+                        mail to: "${EMAIL_RECIPIENT}",
                         subject: "Jenkins Pipeline: Security Scan - ${currentBuild.currentResult}",
                         body: "The Security Scan stage has ${currentBuild.currentResult}. Check the attached logs for details.",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                        to: "${EMAIL_RECIPIENT}",
                         attachLog: true
-                    )
+                    
                 }
             }
         }
