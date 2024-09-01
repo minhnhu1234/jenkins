@@ -25,7 +25,7 @@ pipeline {
                         body: "The Unit and Integration Tests stage has ${currentBuild.currentResult}. Check the attached logs for details.",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                         attachLog: true
-                    )
+                    
                 }
             }
         }
