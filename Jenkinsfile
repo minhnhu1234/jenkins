@@ -13,14 +13,16 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Build Stage: Success",
-                         body: "The Build stage was successful!"
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Build Stage: Success",
+                             body: "The Build stage was successful!\n\nCheck the attached logs for details.",
+                             attachLog: true
                 }
                 failure {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Build Stage: Failure",
-                         body: "The Build stage failed. Please check the logs for details."
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Build Stage: Failure",
+                             body: "The Build stage failed. Please check the attached logs for details.",
+                             attachLog: true
                 }
             }
         }
@@ -32,14 +34,16 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Unit and Integration Tests Stage: Success",
-                         body: "The Unit and Integration Tests stage was successful!"
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Unit and Integration Tests Stage: Success",
+                             body: "The Unit and Integration Tests stage was successful!\n\nCheck the attached logs for details.",
+                             attachLog: true
                 }
                 failure {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Unit and Integration Tests Stage: Failure",
-                         body: "The Unit and Integration Tests stage failed. Please check the logs for details."
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Unit and Integration Tests Stage: Failure",
+                             body: "The Unit and Integration Tests stage failed. Please check the attached logs for details.",
+                             attachLog: true
                 }
             }
         }
@@ -58,14 +62,16 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Security Scan Stage: Success",
-                         body: "The Security Scan stage was successful!"
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Security Scan Stage: Success",
+                             body: "The Security Scan stage was successful!\n\nCheck the attached logs for details.",
+                             attachLog: true
                 }
                 failure {
-                    mail to: "${EMAIL_RECIPIENT}",
-                         subject: "Security Scan Stage: Failure",
-                         body: "The Security Scan stage failed. Please check the logs for details."
+                    emailext to: "${EMAIL_RECIPIENT}",
+                             subject: "Security Scan Stage: Failure",
+                             body: "The Security Scan stage failed. Please check the attached logs for details.",
+                             attachLog: true
                 }
             }
         }
@@ -98,3 +104,4 @@ pipeline {
         }
     }
 }
+
